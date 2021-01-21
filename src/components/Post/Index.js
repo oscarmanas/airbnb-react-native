@@ -1,30 +1,49 @@
 import React from 'react';
-import { View, Text, Image } from 'react-native'
-import styles from './styles'
+import {View, Text, Image, Pressable} from 'react-native';
+import styles from './styles.js';
+import { useNavigation } from '@react-navigation/native';
+
+const days = 7;
 
 const Post = (props) => {
 
-    const post = props.post;
+  const post = props.post;
 
-    return (
-        <View style={styles.container}>
-            <Image
-                style={styles.image}
-                source={{uri: 'https://www.andorrabybus.com/blog/wp-content/uploads/2019/02/mejores-pistas-esqui-andorra-740x350.jpg'}}            
-            />
+  const navigation = useNavigation();
 
-            <Text style={styles.time}>Excursion de un dia</Text>
+  const goToPostPage = () => {
+    navigation.navigate('Post', {postId: post.id});
+  }
 
-            <Text style={styles.description} numberOfLines={3}>Excursion a Andorra en temporada de invierno para esquiar. Estaremos todo el dia. Hara un dia muy bonito para hacer cualquier actividad bonita.</Text>
+  return (
+    <Pressable onPress={goToPostPage} style={styles.container}>
+      {/* Image  */}
+      <Image
+        style={styles.image}
+        source={{uri: post.image}}
+      />
 
-            <Text style={styles.prices}>
-                <Text style={styles.oldPrice}>36€ </Text>
-                <Text style={styles.price}> 30€</Text>
-                / night
-            </Text>
-            <Text style={styles.totalPrice}>19,99€ total</Text>
-        </View>
-    )
-}
+      {/* Bed & Bedroom  */}
+      <Text style={styles.bedrooms}>
+        {post.bed} bed {post.bedroom} bedroom
+      </Text>
 
-export default Post
+      {/* Type & Description */}
+      <Text style={styles.description} numberOfLines={2}>
+        {post.type}. {post.title}
+      </Text>
+
+      {/*  Old price & new price */}
+      <Text style={styles.prices}>
+        <Text style={styles.oldPrice}>${post.oldPrice}</Text>
+        <Text style={styles.price}>  ${post.newPrice} </Text>
+        / night
+      </Text>
+
+      {/*  Total price */}
+      <Text style={styles.totalPrice}>${post.newPrice * days} total</Text>
+    </Pressable>
+  );
+};
+
+export default Post;

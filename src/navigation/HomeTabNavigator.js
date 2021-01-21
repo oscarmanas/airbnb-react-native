@@ -3,7 +3,7 @@ import {createBottomTabNavigator} from "@react-navigation/bottom-tabs"
 import HomeScreen from '../screens/HomeScreen';
 import DestinationSearchScreen from '../screens/DestinationSearch'
 import Guests from '../screens/Guests'
-import Post from '../components/Post'
+
 import Fontisto from 'react-native-vector-icons/Fontisto'
 import AntDesign from 'react-native-vector-icons/AntDesign'
 
@@ -43,7 +43,7 @@ const HomeTabNavigator = () => {
             />
             <Tab.Screen 
                 name={"Profile"} 
-                component={Post}
+                component={HomeScreen}
                 options={{
                     tabBarIcon: ({color}) => (
                         <AntDesign name="user" size={30} color={color} />
